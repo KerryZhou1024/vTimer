@@ -13,10 +13,11 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
+//        for _ in 0..<10 {
+        let newItem = Periods(context: viewContext)
+        newItem.startingTime = Date()
+        newItem.endingTime = Date().addingTimeInterval(1000.0)
+//        }
         do {
             try viewContext.save()
         } catch {
@@ -52,4 +53,20 @@ struct PersistenceController {
             }
         })
     }
+    
+    //from hackwithswift.com https://www.hackingwithswift.com/quick-start/swiftui/how-to-configure-core-data-to-work-with-swiftui
+    func save() {
+        let context = container.viewContext
+
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Show some error here
+            }
+        }
+    }
+    
+    
+    
 }

@@ -10,11 +10,32 @@ import SwiftUI
 @main
 struct vTimerApp: App {
     let persistenceController = PersistenceController.shared
-
+    
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            TabView{
+                ContentView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .tabItem {
+                        Image(systemName: "timer")
+                        Text("Current Timer")
+                    }
+                
+                
+                PastActivities()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .tabItem {
+                        Image(systemName: "note.text")
+                        Text("Past Activities")
+                    }
+            }
+            
+        }
+        .onChange(of: scenePhase) { _ in
+            persistenceController.save()
         }
     }
+    
 }

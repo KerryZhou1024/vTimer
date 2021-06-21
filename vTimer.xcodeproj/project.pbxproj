@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F44D8CA92681102500B8A96D /* period.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D8CA82681102500B8A96D /* period.swift */; };
+		F44D8CAE2681163200B8A96D /* PastActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D8CAD2681163200B8A96D /* PastActivities.swift */; };
 		F4911226267ECCCE004488FC /* vTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4911225267ECCCE004488FC /* vTimerApp.swift */; };
 		F4911228267ECCCE004488FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4911227267ECCCE004488FC /* ContentView.swift */; };
 		F491122A267ECCD4004488FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4911229267ECCD4004488FC /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F44D8CA82681102500B8A96D /* period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = period.swift; sourceTree = "<group>"; };
+		F44D8CAD2681163200B8A96D /* PastActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastActivities.swift; sourceTree = "<group>"; };
 		F4911222267ECCCE004488FC /* vTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4911225267ECCCE004488FC /* vTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vTimerApp.swift; sourceTree = "<group>"; };
 		F4911227267ECCCE004488FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,8 @@
 			children = (
 				F4911225267ECCCE004488FC /* vTimerApp.swift */,
 				F4911227267ECCCE004488FC /* ContentView.swift */,
+				F44D8CAD2681163200B8A96D /* PastActivities.swift */,
+				F44D8CA82681102500B8A96D /* period.swift */,
 				F4911229267ECCD4004488FC /* Assets.xcassets */,
 				F491122E267ECCD4004488FC /* Persistence.swift */,
 				F4911233267ECCD4004488FC /* Info.plist */,
@@ -266,6 +272,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F491122F267ECCD4004488FC /* Persistence.swift in Sources */,
+				F44D8CA92681102500B8A96D /* period.swift in Sources */,
+				F44D8CAE2681163200B8A96D /* PastActivities.swift in Sources */,
 				F4911228267ECCCE004488FC /* ContentView.swift in Sources */,
 				F4911232267ECCD4004488FC /* vTimer.xcdatamodeld in Sources */,
 				F4911226267ECCCE004488FC /* vTimerApp.swift in Sources */,
