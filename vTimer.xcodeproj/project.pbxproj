@@ -17,6 +17,8 @@
 		F4911232267ECCD4004488FC /* vTimer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F4911230267ECCD4004488FC /* vTimer.xcdatamodeld */; };
 		F491123D267ECCD4004488FC /* vTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F491123C267ECCD4004488FC /* vTimerTests.swift */; };
 		F4911248267ECCD4004488FC /* vTimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4911247267ECCD4004488FC /* vTimerUITests.swift */; };
+		F4FA497626816FD000D7710A /* PeriodRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FA497526816FD000D7710A /* PeriodRowView.swift */; };
+		F4FA497B2681795D00D7710A /* TimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FA497A2681795D00D7710A /* TimeFormatter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		F4911243267ECCD4004488FC /* vTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4911247267ECCD4004488FC /* vTimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vTimerUITests.swift; sourceTree = "<group>"; };
 		F4911249267ECCD4004488FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4FA497526816FD000D7710A /* PeriodRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodRowView.swift; sourceTree = "<group>"; };
+		F4FA497A2681795D00D7710A /* TimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				F4911225267ECCCE004488FC /* vTimerApp.swift */,
 				F4911227267ECCCE004488FC /* ContentView.swift */,
 				F44D8CAD2681163200B8A96D /* PastActivities.swift */,
+				F4FA497526816FD000D7710A /* PeriodRowView.swift */,
+				F4FA497A2681795D00D7710A /* TimeFormatter.swift */,
 				F44D8CA82681102500B8A96D /* period.swift */,
 				F4911229267ECCD4004488FC /* Assets.xcassets */,
 				F491122E267ECCD4004488FC /* Persistence.swift */,
@@ -272,9 +278,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F491122F267ECCD4004488FC /* Persistence.swift in Sources */,
+				F4FA497B2681795D00D7710A /* TimeFormatter.swift in Sources */,
 				F44D8CA92681102500B8A96D /* period.swift in Sources */,
 				F44D8CAE2681163200B8A96D /* PastActivities.swift in Sources */,
 				F4911228267ECCCE004488FC /* ContentView.swift in Sources */,
+				F4FA497626816FD000D7710A /* PeriodRowView.swift in Sources */,
 				F4911232267ECCD4004488FC /* vTimer.xcdatamodeld in Sources */,
 				F4911226267ECCCE004488FC /* vTimerApp.swift in Sources */,
 			);
