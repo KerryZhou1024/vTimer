@@ -19,7 +19,7 @@ struct PeriodRowView: View {
     
     
     var body: some View {
-        if period.endingTime != nil && period.startingTime != nil{
+
             HStack{
                 Spacer()
                 
@@ -36,16 +36,20 @@ struct PeriodRowView: View {
                     
                     Text(TimeFormatter().longLongTimeAgo(date: period.endingTime!))
                         .font(.caption)
+                        .foregroundColor(.gray)
+                        .padding(.trailing, 5.0)
+                        
+                        
                     
                     Spacer()
                     
                 }
                 Spacer()
             }
-        }else if period.endingTime == nil && period.startingTime != nil{
-            //user's timers is running!
-        }else{
-            Text("* Something went wrong here :(")
         }
-    }
+//    else if period.endingTime == nil && period.startingTime != nil{
+//            //user's timers is running!
+//        }else{
+//            Text("* Something went wrong here :(")
+//        }
 }

@@ -54,7 +54,7 @@ struct PastActivities: View {
                 VStack{
                     ZStack{
                         Capsule()
-                            .padding(.horizontal)
+                            .padding(.all)
                             .frame(height: 60.0)
                             .foregroundColor(bannerColor)
                             .opacity(0.3)
@@ -62,18 +62,15 @@ struct PastActivities: View {
                             .bold()
                             .onAppear{
                                 if periods.count > 0{
-                                        var interval:TimeInterval = 0.0
-                                        for period in periods{
-                                            if let start = period.startingTime, let end = period.endingTime{
-                                                interval += end.timeIntervalSince(start)
-                                            }
-                                            
+                                    var interval:TimeInterval = 0.0
+                                    for period in periods{
+                                        if let start = period.startingTime, let end = period.endingTime{
+                                            interval += end.timeIntervalSince(start)
                                         }
                                         
-                                        totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
+                                    }
                                     
-                                    
-                                    
+                                    totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
                                 }
                             }
                     }
@@ -81,7 +78,9 @@ struct PastActivities: View {
             }
             
             List(periods, id:\.self){ period in
-                PeriodRowView(period: period)
+                if period.endingTime != nil && period.startingTime != nil{
+                    PeriodRowView(period: period)
+                }
             }
             
             

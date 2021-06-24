@@ -52,10 +52,16 @@ struct ContentView: View {
                 VStack{
                     
                     Spacer()
-                    Text("A total of:")
-                        .font(.title)
-                    Text(totalTime != "" ? totalTime : "3213 hours 5 minutes")
-                        .font(.title)
+                    if totalTime != ""{
+                        Text("A total of:")
+                            .font(.title)
+                        Text(totalTime)
+                            .font(.title)
+                    }else{
+                        Text("Let's get started!")
+                            .font(.title)
+                    }
+                    
                     
                     Spacer()
                     Spacer()
@@ -115,7 +121,9 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Text(currentTimer != "" ? currentTimer : "Loading...")
+                    Text(" ")
+                    
+                    Text(currentTimer != "" ? currentTimer : TimeFormatter().secondsToHoursMinutesSecondsLite(interval: Date().timeIntervalSince(periods[periods.count - 1].startingTime!)))
                         .font(.title)
                         .onReceive(timer, perform: { _ in
                             currentTimer = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: Date().timeIntervalSince(periods[periods.count - 1].startingTime!))
