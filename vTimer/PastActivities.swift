@@ -28,17 +28,17 @@ struct PastActivities: View {
     @FetchRequest(
         entity: Periods.entity(),
         sortDescriptors: [
-            NSSortDescriptor(keyPath: \Periods.startingTime, ascending: true)
+            NSSortDescriptor(keyPath: \Periods.startingTime, ascending: false)
         ],
         animation : .default
-    ) var periodsFetchedResults: FetchedResults<Periods>
+    ) var periods: FetchedResults<Periods>
     //
     //    @ObservedObject var collection = periodsCollection.init(results: periodsFetchedResults)
     //    @State var periods = collection.$periods
     
     
     
-    
+    @State var totalTime:String = ""
     
     
     @State var bannerColor:Color = Color.green
@@ -55,16 +55,32 @@ struct PastActivities: View {
                     ZStack{
                         Capsule()
                             .padding(.horizontal)
-                            .frame(width: .infinity, height: 60, alignment: .center)
+                            .frame(height: 60.0)
                             .foregroundColor(bannerColor)
                             .opacity(0.3)
-                        Text("242 Hours 34 Minutes so far!")
+                        Text("\(totalTime) total in the log!")
                             .bold()
+                            .onAppear{
+                                if periods.count > 0{
+                                        var interval:TimeInterval = 0.0
+                                        for period in periods{
+                                            if let start = period.startingTime, let end = period.endingTime{
+                                                interval += end.timeIntervalSince(start)
+                                            }
+                                            
+                                        }
+                                        
+                                        totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
+                                    
+                                    
+                                    
+                                }
+                            }
                     }
                 }
             }
             
-            List(periodsFetchedResults, id:\.self){ period in
+            List(periods, id:\.self){ period in
                 PeriodRowView(period: period)
             }
             
@@ -90,7 +106,7 @@ struct PastActivities: View {
 
 struct PastActivities_Previews: PreviewProvider {
     static var previews: some View {
-        PastActivities()
+        PastActivities(totalTime: "Touchy")
     }
 }
 

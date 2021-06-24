@@ -14,6 +14,49 @@ class TimeFormatter{
     
     var interval: TimeInterval?
     
+    func secondsToHoursMinutesSecondsLite (interval : TimeInterval) -> String {
+        let amountOfSeconds = Int(interval)
+        let (hr, min, sec) = (amountOfSeconds / 3600, (amountOfSeconds % 3600) / 60, (amountOfSeconds % 3600) % 60)
+        
+        var result = ""
+        
+        if hr == 1{
+            result += "1 Hour "
+        }
+        
+        if hr > 1{
+            result += "\(hr) Hours "
+        }
+        
+        
+        
+        if min == 1{
+            result += "1 Minute "
+        }
+        
+        if min > 1{
+            result += "\(min) Minutes "
+        }
+        
+        
+        
+        if !(hr != 0 && min != 0){
+            if sec == 1{
+                result += "1 Second"
+            }
+            
+            if sec > 1{
+                result += "\(sec) Seconds"
+            }
+        }
+        
+        if hr == 0 && min == 0 && sec == 0{
+            result = "Less than a second"
+        }
+        
+        return result
+    }
+    
     func secondsToHoursMinutesSeconds (interval : TimeInterval) -> String {
         let amountOfSeconds = Int(interval)
         let (hr, min, sec) = (amountOfSeconds / 3600, (amountOfSeconds % 3600) / 60, (amountOfSeconds % 3600) % 60)
@@ -46,6 +89,9 @@ class TimeFormatter{
             result += "\(sec) Seconds"
         }
         
+        if hr == 0 && min == 0 && sec == 0{
+            result = "Less than a second"
+        }
         
         return result
     }
@@ -70,8 +116,10 @@ class TimeFormatter{
             return "Hours ago"
         }else if interval < 172800{
             return "Yesturday"
-        }else{
+        }else if interval < Int(3.154e+7){
             return "\(interval/86400) days ago"
+        }else{
+            return "Years ago"
         }
         
     }

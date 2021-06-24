@@ -28,7 +28,7 @@ struct ContentView: View {
     //    @FetchRequest(
     //        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
     ////        animation: .default)
-    //
+    
     //    private var items: FetchedResults<Item>
     
     
@@ -36,17 +36,24 @@ struct ContentView: View {
     @State var totalTime:String = ""
     @State var currentTimer:String = ""
     
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
+    
+    
     var body: some View {
         
-        
-        
         return Group {
+            
+            
             if !timerIsRunning{
                 //when the timer is not running
                 VStack{
                     
                     Spacer()
-                    
+                    Text("A total of:")
+                        .font(.title)
                     Text(totalTime != "" ? totalTime : "3213 hours 5 minutes")
                         .font(.title)
                     
@@ -55,6 +62,13 @@ struct ContentView: View {
                     
                     Button(action: {
                         timerIsRunning = true
+                        //now save
+                        
+                        let newPeriod = Periods(context: managedObjectContext)
+                        newPeriod.startingTime = Date()
+                        
+                        PersistenceController.shared.save()
+                        
                     }) {
                         ZStack{
                             
@@ -64,7 +78,7 @@ struct ContentView: View {
                             
                             Circle()
                                 .foregroundColor(.green)
-                                .frame(width: 100, height: 100, alignment: .center)
+                                .frame(width: 150, height: 150, alignment: .center)
                                 .shadow(color: .black, radius: 2, x: 2, y: 2)
                                 .opacity(0.5)
                             
@@ -75,43 +89,60 @@ struct ContentView: View {
                     Spacer()
                     
                 }
+                .onAppear{
+                    if periods.count > 0{
+                        
+                        if (periods[periods.count - 1].endingTime == nil && periods[periods.count - 1].startingTime != nil){
+                            timerIsRunning = true
+                        }else{
+                            var interval:TimeInterval = 0.0
+                            for period in periods{
+                                if let start = period.startingTime, let end = period.endingTime{
+                                    interval += end.timeIntervalSince(start)
+                                }
+                                
+                            }
+                            
+                            totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
+                        }
+                        
+                        
+                        
+                    }
+                }
             }else{
                 VStack{
                     
                     Spacer()
                     
-                    Text(currentTimer != "" ? currentTimer : "1:45:24")
+                    Text(currentTimer != "" ? currentTimer : "Loading...")
                         .font(.title)
+                        .onReceive(timer, perform: { _ in
+                            currentTimer = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: Date().timeIntervalSince(periods[periods.count - 1].startingTime!))
+                        })
                     
                     Spacer()
                     Spacer()
                     
                     HStack{
-                        
-                        Spacer()
-                        Spacer()
-                        
-                        ZStack{
-                            Circle()
-                                .foregroundColor(.blue)
-                                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
-                                .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x: 2, y: 2)
-                                .opacity(0.5)
-                            Text("Pause")
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                        }
-                        
                         Spacer()
                         
                         Button(action: {
                             //MARK: Remeber to update total number
                             
                             timerIsRunning = false
+                            
+                            periods[periods.count - 1].endingTime = Date()
+                            
+                            PersistenceController.shared.save()
+                            currentTimer = "0"
+                            
+                            
                         }){
                             ZStack{
                                 Circle()
                                     .foregroundColor(.red)
-                                    .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
+                                    .frame(width: 150, height: 150, alignment: .center)
                                     .shadow(color: /*@START_MENU_TOKEN@*/.black/*@END_MENU_TOKEN@*/, radius: 2, x: 2, y: 2)
                                     .opacity(0.5)
                                 Text("Stop")
@@ -119,8 +150,6 @@ struct ContentView: View {
                             }
                         }
                         
-                        
-                        Spacer()
                         Spacer()
                         
                     }
@@ -131,6 +160,7 @@ struct ContentView: View {
                 
             }
         }
+        
         
         
         

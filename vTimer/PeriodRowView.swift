@@ -25,8 +25,8 @@ struct PeriodRowView: View {
                 
                 Spacer()
                 
-                Text(TimeFormatter().secondsToHoursMinutesSeconds(interval: period.endingTime!.timeIntervalSince(period.startingTime!)))
-                    .font(.title)
+                Text(TimeFormatter().secondsToHoursMinutesSecondsLite(interval: period.endingTime!.timeIntervalSince(period.startingTime!)))
+                    .font(.title3)
                 
                 
                 Spacer()
@@ -35,13 +35,15 @@ struct PeriodRowView: View {
                 VStack{
                     
                     Text(TimeFormatter().longLongTimeAgo(date: period.endingTime!))
-                        .font(.title2)
+                        .font(.caption)
                     
-                    
+                    Spacer()
                     
                 }
                 Spacer()
             }
+        }else if period.endingTime == nil && period.startingTime != nil{
+            //user's timers is running!
         }else{
             Text("* Something went wrong here :(")
         }

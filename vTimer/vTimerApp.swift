@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct vTimerApp: App {
+    
     let persistenceController = PersistenceController.shared
     
     @Environment(\.scenePhase) var scenePhase

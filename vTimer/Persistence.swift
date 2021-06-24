@@ -30,6 +30,23 @@ struct PersistenceController {
     }()
 
     let container: NSPersistentContainer
+    
+    
+    
+    
+    //from hackwithswift.com https://www.hackingwithswift.com/quick-start/swiftui/how-to-configure-core-data-to-work-with-swiftui
+    func save() {
+        let context = container.viewContext
+
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Show some error here
+            }
+        }
+    }
+    
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "vTimer")
@@ -54,18 +71,7 @@ struct PersistenceController {
         })
     }
     
-    //from hackwithswift.com https://www.hackingwithswift.com/quick-start/swiftui/how-to-configure-core-data-to-work-with-swiftui
-    func save() {
-        let context = container.viewContext
-
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Show some error here
-            }
-        }
-    }
+    
     
     
     
