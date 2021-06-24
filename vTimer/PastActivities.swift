@@ -54,8 +54,9 @@ struct PastActivities: View {
                 VStack{
                     ZStack{
                         Capsule()
+                            
                             .padding(.all)
-                            .frame(height: 60.0)
+                            .frame(height: 90.0)
                             .foregroundColor(bannerColor)
                             .opacity(0.3)
                         Text("\(totalTime) total in the log!")
@@ -105,7 +106,7 @@ struct PastActivities: View {
 
 struct PastActivities_Previews: PreviewProvider {
     static var previews: some View {
-        PastActivities(totalTime: "Touchy")
+        PastActivities(totalTime: "Touchy! ")
     }
 }
 
