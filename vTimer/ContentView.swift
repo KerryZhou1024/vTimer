@@ -80,7 +80,7 @@ struct ContentView: View {
                             
                             Text("Start")
                                 .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                                .foregroundColor(.blue)
+                                .bold()
                             
                             Circle()
                                 .foregroundColor(.green)
@@ -155,6 +155,7 @@ struct ContentView: View {
                                     .opacity(0.5)
                                 Text("Stop")
                                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                    .bold()
                             }
                         }
                         

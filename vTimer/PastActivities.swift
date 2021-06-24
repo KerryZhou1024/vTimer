@@ -43,6 +43,8 @@ struct PastActivities: View {
     
     @State var bannerColor:Color = Color.green
     
+    @State var showSheet: Bool = false
+    
     
     var body: some View {
         
@@ -50,6 +52,21 @@ struct PastActivities: View {
         VStack{
             Button(action: {
                 bannerColor = Color.random
+                
+                if periods.count > 0{
+                    var interval:TimeInterval = 0.0
+                    for period in periods{
+                        if let start = period.startingTime, let end = period.endingTime{
+                            interval += end.timeIntervalSince(start)
+                        }
+                        
+                    }
+                    
+                    totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
+                }
+                
+                
+                
             }){
                 VStack{
                     ZStack{
@@ -78,11 +95,16 @@ struct PastActivities: View {
                 }
             }
             
+            
+            
+            
             List(periods, id:\.self){ period in
                 if period.endingTime != nil && period.startingTime != nil{
                     PeriodRowView(period: period)
                 }
-            }
+            }.sheet(isPresented: $showSheet, content: {
+                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Sheet Content")/*@END_MENU_TOKEN@*/
+            })
             
             
             
