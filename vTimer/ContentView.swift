@@ -72,6 +72,7 @@ struct ContentView: View {
                         
                         let newPeriod = Periods(context: managedObjectContext)
                         newPeriod.startingTime = Date()
+                        newPeriod.uid = UUID()
                         
                         PersistenceController.shared.save()
                         

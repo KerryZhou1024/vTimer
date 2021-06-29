@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F44D8CA92681102500B8A96D /* period.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D8CA82681102500B8A96D /* period.swift */; };
 		F44D8CAE2681163200B8A96D /* PastActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D8CAD2681163200B8A96D /* PastActivities.swift */; };
+		F45764AA268B9D0900802B99 /* PeriodDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45764A9268B9D0900802B99 /* PeriodDetailView.swift */; };
 		F4911226267ECCCE004488FC /* vTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4911225267ECCCE004488FC /* vTimerApp.swift */; };
 		F4911228267ECCCE004488FC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4911227267ECCCE004488FC /* ContentView.swift */; };
 		F491122A267ECCD4004488FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4911229267ECCD4004488FC /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		F44D8CA82681102500B8A96D /* period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = period.swift; sourceTree = "<group>"; };
 		F44D8CAD2681163200B8A96D /* PastActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastActivities.swift; sourceTree = "<group>"; };
+		F45764A9268B9D0900802B99 /* PeriodDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodDetailView.swift; sourceTree = "<group>"; };
 		F4911222267ECCCE004488FC /* vTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4911225267ECCCE004488FC /* vTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vTimerApp.swift; sourceTree = "<group>"; };
 		F4911227267ECCCE004488FC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				F4911225267ECCCE004488FC /* vTimerApp.swift */,
 				F4911227267ECCCE004488FC /* ContentView.swift */,
 				F44D8CAD2681163200B8A96D /* PastActivities.swift */,
+				F45764A9268B9D0900802B99 /* PeriodDetailView.swift */,
 				F4FA497526816FD000D7710A /* PeriodRowView.swift */,
 				F4FA497A2681795D00D7710A /* TimeFormatter.swift */,
 				F44D8CA82681102500B8A96D /* period.swift */,
@@ -280,6 +283,7 @@
 				F491122F267ECCD4004488FC /* Persistence.swift in Sources */,
 				F4FA497B2681795D00D7710A /* TimeFormatter.swift in Sources */,
 				F44D8CA92681102500B8A96D /* period.swift in Sources */,
+				F45764AA268B9D0900802B99 /* PeriodDetailView.swift in Sources */,
 				F44D8CAE2681163200B8A96D /* PastActivities.swift in Sources */,
 				F4911228267ECCCE004488FC /* ContentView.swift in Sources */,
 				F4FA497626816FD000D7710A /* PeriodRowView.swift in Sources */,

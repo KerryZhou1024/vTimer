@@ -23,6 +23,8 @@ class periodsCollection:ObservableObject{
 }
 
 struct PastActivities: View {
+    let persistenceController = PersistenceController.shared
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
@@ -44,6 +46,8 @@ struct PastActivities: View {
     @State var bannerColor:Color = Color.green
     
     @State var showSheet: Bool = false
+    
+    @State var periodID:UUID?
     
     
     var body: some View {
@@ -98,13 +102,28 @@ struct PastActivities: View {
             
             
             
-            List(periods, id:\.self){ period in
-                if period.endingTime != nil && period.startingTime != nil{
-                    PeriodRowView(period: period)
+            NavigationView {
+                List(periods, id:\.self){ period in
+                    
+                    if period.endingTime != nil && period.startingTime != nil &&
+                        period.uid != nil{
+                        
+                        NavigationLink(
+                            destination: PeriodDetailView(uid: period.uid!)
+                                .navigationTitle("Details")
+                                .environment(\.managedObjectContext, persistenceController.container.viewContext),
+                            label: {
+                                PeriodRowView(period: period)
+                            })
+                    }else{
+                        Spacer()
+                        Text("Timer Is Running")
+                            .foregroundColor(.blue)
+                        Spacer()
+                    }
                 }
-            }.sheet(isPresented: $showSheet, content: {
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Content@*/Text("Sheet Content")/*@END_MENU_TOKEN@*/
-            })
+                .navigationBarTitle("History")
+            }
             
             
             

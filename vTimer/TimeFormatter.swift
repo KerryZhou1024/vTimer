@@ -100,27 +100,20 @@ class TimeFormatter{
     func dateToReadableDate(date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
+        dateFormatter.timeStyle = .short
         
         return dateFormatter.string(from: date)
     }
     
     func longLongTimeAgo(date: Date) -> String{
-        let interval = Int(Date().timeIntervalSince(date))
         
-        if interval < 60{
-            return "Moments ago"
-        }else if interval < 3600{
-            return "Minutes ago"
-        }else if interval < 86400{
-            return "Hours ago"
-        }else if interval < 172800{
-            return "Yesturday"
-        }else if interval < Int(3.154e+7){
-            return "\(interval/86400) days ago"
-        }else{
-            return "Years ago"
-        }
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        return dateFormatter.string(from: date)
+        
         
     }
     

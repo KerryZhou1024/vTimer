@@ -34,14 +34,11 @@ struct PeriodRowView: View {
                 Spacer()
                 VStack{
                     
+                    Spacer()
                     Text(TimeFormatter().longLongTimeAgo(date: period.endingTime!))
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 5.0)
-                        
-                        
-                    
-                    Spacer()
                     
                 }
                 Spacer()
