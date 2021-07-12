@@ -29,7 +29,7 @@ struct vTimerApp: App {
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .tabItem {
                         Image(systemName: "note.text")
-                        Text("Past Activities")
+                        Text("History")
                     }
             }
             
