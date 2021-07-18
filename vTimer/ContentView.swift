@@ -21,7 +21,7 @@ struct ContentView: View {
         animation : .default
     ) var periods: FetchedResults<Periods>
     
-    
+    @State var showSpamAlert = false;
     
     
     //
@@ -67,14 +67,29 @@ struct ContentView: View {
                     Spacer()
                     
                     Button(action: {
-                        timerIsRunning = true
-                        //now save
+                        if periods.count > 0{
+                            if periods[periods.count - 1].endingTime != nil{
+                                timerIsRunning = true
+                                //now save
+                                
+                                let newPeriod = Periods(context: managedObjectContext)
+                                newPeriod.startingTime = Date()
+                                newPeriod.uid = UUID()
+                                
+                                PersistenceController.shared.save()
+                            }
+                        }else{
+                            timerIsRunning = true
+                            //now save
+                            
+                            let newPeriod = Periods(context: managedObjectContext)
+                            newPeriod.startingTime = Date()
+                            newPeriod.uid = UUID()
+                            
+                            PersistenceController.shared.save()
+                        }
                         
-                        let newPeriod = Periods(context: managedObjectContext)
-                        newPeriod.startingTime = Date()
-                        newPeriod.uid = UUID()
                         
-                        PersistenceController.shared.save()
                         
                     }) {
                         ZStack{
@@ -139,12 +154,21 @@ struct ContentView: View {
                         Button(action: {
                             //MARK: Remeber to update total number
                             
-                            timerIsRunning = false
+                            if periods.count > 0 {
+                                if periods[periods.count - 1].startingTime != nil{
+                                    timerIsRunning = false
+                                    
+                                    periods[periods.count - 1].endingTime = Date()
+                                    
+                                    PersistenceController.shared.save()
+                                    currentTimer = "0"
+                                }else{
+                                    showSpamAlert = true
+                                }
+                            }
                             
-                            periods[periods.count - 1].endingTime = Date()
                             
-                            PersistenceController.shared.save()
-                            currentTimer = "0"
+                            
                             
                             
                         }){
@@ -160,9 +184,14 @@ struct ContentView: View {
                             }
                         }
                         
+                        
                         Spacer()
                         
                     }
+                    
+//                    .alert(isPresented: $showSpamAlert, content: {
+//                        Alert(title: "Error", message: "Please Do Not Spam Click As You May Encounter Fatal Bug.", dismissButton: .default(Text("OK")))
+//                    })
                     
                     Spacer()
                 }

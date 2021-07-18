@@ -14,6 +14,56 @@ class TimeFormatter{
     
     var interval: TimeInterval?
     
+    
+    
+    func secondsToHoursMinutesSecondsLiteUltra (interval : TimeInterval) -> String {
+        let amountOfSeconds = Int(interval)
+        let (hr, min, sec) = (amountOfSeconds / 3600, (amountOfSeconds % 3600) / 60, (amountOfSeconds % 3600) % 60)
+        
+        var result = ""
+        
+        if hr == 1{
+            result += "1 Hour "
+            return result
+        }
+        
+        if hr > 1{
+            result += "\(hr) Hours "
+            return result
+        }
+        
+        
+        
+        if min == 1{
+            result += "1 Minute "
+            return result
+        }
+        
+        if min > 1{
+            result += "\(min) Minutes "
+            return result
+        }
+        
+        
+        
+        
+        if sec == 1{
+            result += "1 Second"
+            return result
+        }
+        
+        if sec > 1{
+            result += "\(sec) Seconds"
+            return result
+        }
+        
+        if hr == 0 && min == 0 && sec == 0{
+            result = "Instant"
+        }
+        
+        return result
+    }
+    
     func secondsToHoursMinutesSecondsLite (interval : TimeInterval) -> String {
         let amountOfSeconds = Int(interval)
         let (hr, min, sec) = (amountOfSeconds / 3600, (amountOfSeconds % 3600) / 60, (amountOfSeconds % 3600) % 60)

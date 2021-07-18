@@ -40,69 +40,24 @@ struct PastActivities: View {
     
     
     
-    @State var totalTime:String = ""
+    @State var showClearAllAlert = false
     
-    
-    @State var bannerColor:Color = Color.green
+    @State var timerColor:Color = Color.blue
     
     @State var showSheet: Bool = false
     
     @State var periodID:UUID?
     
+    @State var easterEggCount = 0
+    
+    @State var easterEggAlertIsPresent = false
+    
     
     var body: some View {
         
         
-        VStack{
-            Button(action: {
-                bannerColor = Color.random
-                
-                if periods.count > 0{
-                    var interval:TimeInterval = 0.0
-                    for period in periods{
-                        if let start = period.startingTime, let end = period.endingTime{
-                            interval += end.timeIntervalSince(start)
-                        }
-                        
-                    }
-                    
-                    totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
-                }
-                
-                
-                
-            }){
-                VStack{
-                    ZStack{
-                        Capsule()
-                            
-                            .padding(.all)
-                            .frame(height: 90.0)
-                            .foregroundColor(bannerColor)
-                            .opacity(0.3)
-                        Text("\(totalTime) total in the log!")
-                            .bold()
-                            .onAppear{
-                                if periods.count > 0{
-                                    var interval:TimeInterval = 0.0
-                                    for period in periods{
-                                        if let start = period.startingTime, let end = period.endingTime{
-                                            interval += end.timeIntervalSince(start)
-                                        }
-                                        
-                                    }
-                                    
-                                    totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
-                                }
-                            }
-                    }
-                }
-            }
-            
-            
-            
-            
-            NavigationView {
+        NavigationView {
+            Form{
                 List(periods, id:\.self){ period in
                     
                     if period.endingTime != nil && period.startingTime != nil &&
@@ -117,37 +72,89 @@ struct PastActivities: View {
                             })
                     }else{
                         Spacer()
-                        Text("Timer Is Running")
-                            .foregroundColor(.blue)
+                        
+                        Button(action: {
+                            timerColor = Color.random
+                            
+                            if easterEggCount > 14{
+                                easterEggCount = -112
+                                easterEggAlertIsPresent = true
+                                
+                            }else{
+                                easterEggCount += 1
+                            }
+                            
+                            
+                        }, label: {
+                            
+                            HStack{
+                                Image(systemName: "timer.square")
+                                    .font(.title)
+                                    .foregroundColor(timerColor)
+                                
+                                Text("Timer Is Running")
+                                    .bold()
+                                    .foregroundColor(timerColor)
+                                    .padding()
+                                    .font(.callout)
+                            }
+                        }).alert(isPresented: $easterEggAlertIsPresent, content: {
+                            
+                            Alert(title: Text(":)"), message: Text("You have found an Easter egg"), dismissButton: .default(Text("lol")))
+                            
+                        })
+                        
+                        
                         Spacer()
+                        
+                        
+                        
                     }
                 }
-                .navigationBarTitle("History")
-            }
-            
-            
-            
-            
-            
-            //            List(periodsFetchedResults,id:\.self){ period in
-            //                Text("A List Item")
-            //                Text("A Second List Item")
-            //                Text("A Third List Item")
-            //            }
+                
+            }.navigationBarTitle("History")
+            .navigationBarItems(trailing: Button(action: {
+                showClearAllAlert = true
+            }, label: {
+                Text("Clear All")
+            }))
+            .alert(isPresented: $showClearAllAlert, content: {
+                
+                Alert(title: Text("Delete All?"), message: Text("All iCloud History Will Be Cleared. You Cannot Undo This Action"), primaryButton: .cancel(), secondaryButton: .destructive(Text("Delete All"), action: {
+                    for period in periods{
+                        managedObjectContext.delete(period)
+                        
+                    }
+                    PersistenceController.shared.save()
+
+                }))
+                
+            })
         }
         
         
         
         
         
-        
-        
+        //            List(periodsFetchedResults,id:\.self){ period in
+        //                Text("A List Item")
+        //                Text("A Second List Item")
+        //                Text("A Third List Item")
+        //            }
     }
+    
+    
+    
+    
+    
+    
+    
 }
+
 
 struct PastActivities_Previews: PreviewProvider {
     static var previews: some View {
-        PastActivities(totalTime: "Touchy! ")
+        PastActivities().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 
