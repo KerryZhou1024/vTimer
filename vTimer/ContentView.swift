@@ -36,7 +36,6 @@ struct ContentView: View {
     @State var totalTime:String = ""
     @State var currentTimer:String = ""
     
-    
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     
@@ -52,17 +51,8 @@ struct ContentView: View {
                 VStack{
                     
                     Spacer()
-                    if totalTime != ""{
-                        Text("A total of:")
-                            .font(.title)
-                        Text(totalTime)
-                            .font(.title)
-                    }else{
-                        Text("Let's get started!")
-                            .font(.title)
-                    }
-                    
-                    
+                    Text(totalTime)
+                        .font(.title)
                     Spacer()
                     Spacer()
                     
@@ -111,27 +101,14 @@ struct ContentView: View {
                     Spacer()
                     
                 }
-                .onAppear{
-                    if periods.count > 0{
-                        
-                        if (periods[periods.count - 1].endingTime == nil && periods[periods.count - 1].startingTime != nil){
-                            timerIsRunning = true
-                        }else{
-                            var interval:TimeInterval = 0.0
-                            for period in periods{
-                                if let start = period.startingTime, let end = period.endingTime{
-                                    interval += end.timeIntervalSince(start)
-                                }
-                                
-                            }
-                            
-                            totalTime = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: interval)
-                        }
-                        
-                        
-                        
-                    }
+                .onChange(of: periods[periods.count - 1]) { _ in
+                    updateView()
                 }
+                .onAppear{
+                    updateView()
+                }
+                
+                
             }else{
                 VStack{
                     
@@ -195,6 +172,12 @@ struct ContentView: View {
                     
                     Spacer()
                 }
+                .onChange(of: periods[periods.count - 1]) { _ in
+                    updateView()
+                }
+                .onAppear{
+                    updateView()
+                }
                 
                 
             }
@@ -204,6 +187,33 @@ struct ContentView: View {
         
         
     }
+    
+    
+    func updateView(){
+        
+        if periods.count > 0{
+            if periods[periods.count - 1].endingTime == nil && periods[periods.count - 1].startingTime != nil{
+                timerIsRunning = true
+            }
+            
+            
+            var totalTimeInterval:TimeInterval = 0.0
+            for period in periods{
+                if period.uid != nil && period.startingTime != nil{
+                    if let endingTime = period.endingTime {
+                        totalTimeInterval += endingTime.timeIntervalSince(period.startingTime!)
+                    }
+                }
+            }
+            totalTime = TimeFormatter().secondsToHoursMinutesSeconds(interval: totalTimeInterval)
+        }else{
+            timerIsRunning = false
+            totalTime = "let's get started"
+        }
+        
+    }
+    
+    
 }
 
 private let itemFormatter: DateFormatter = {
