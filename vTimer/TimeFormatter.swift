@@ -23,24 +23,24 @@ class TimeFormatter{
         var result = ""
         
         if hr == 1{
-            result += "1 Hour "
+            result += "1h"
             return result
         }
         
         if hr > 1{
-            result += "\(hr) Hours "
+            result += "\(hr)h "
             return result
         }
         
         
         
         if min == 1{
-            result += "1 Minute "
+            result += "1Min "
             return result
         }
         
         if min > 1{
-            result += "\(min) Minutes "
+            result += "\(min)Min "
             return result
         }
         
@@ -48,17 +48,17 @@ class TimeFormatter{
         
         
         if sec == 1{
-            result += "1 Second"
+            result += "1s"
             return result
         }
         
         if sec > 1{
-            result += "\(sec) Seconds"
+            result += "\(sec)s"
             return result
         }
         
         if hr == 0 && min == 0 && sec == 0{
-            result = "Instant"
+            result = "<1s"
         }
         
         return result
