@@ -28,19 +28,19 @@ class TimeFormatter{
         }
         
         if hr > 1{
-            result += "\(hr)h "
+            result += "\(hr)h"
             return result
         }
         
         
         
         if min == 1{
-            result += "1Min "
+            result += "1min"
             return result
         }
         
         if min > 1{
-            result += "\(min)Min "
+            result += "\(min)min"
             return result
         }
         
