@@ -27,6 +27,9 @@ struct PastActivities: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    
     @FetchRequest(
         entity: Periods.entity(),
         sortDescriptors: [
@@ -64,7 +67,7 @@ struct PastActivities: View {
                         period.uid != nil{
                         
                         NavigationLink(
-                            destination: PeriodDetailView(uid: period.uid!)
+                            destination: PeriodDetailView(filterUID: period.uid!)
                                 .navigationTitle("Details")
                                 .environment(\.managedObjectContext, persistenceController.container.viewContext),
                             label: {
@@ -117,6 +120,7 @@ struct PastActivities: View {
                 showClearAllAlert = true
             }, label: {
                 Text("Clear All")
+                    .foregroundColor(.red)
             }))
             .alert(isPresented: $showClearAllAlert, content: {
                 

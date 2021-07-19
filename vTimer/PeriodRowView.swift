@@ -22,12 +22,14 @@ struct PeriodRowView: View {
         HStack{
             if period.title == "" || period.title == nil{
                 
-                
-                Spacer();Spacer()
+                Spacer().fixedSize()
                 
                 Text(
                     TimeFormatter().secondsToHoursMinutesSecondsLiteUltra(interval: period.endingTime!.timeIntervalSince(period.startingTime!)))
                     .font(.title3)
+                    .multilineTextAlignment(.leading)
+                    .padding(.trailing,5.0)
+                    
                 
                 Spacer();Spacer();Spacer()
                 
@@ -38,13 +40,18 @@ struct PeriodRowView: View {
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 5.0)
+                        .multilineTextAlignment(.trailing)
                     
                 }
                 Spacer().fixedSize()
                 
             }else{
-                Spacer();Spacer()
-                Text(period.title!).font(.title3)
+                Spacer().fixedSize()
+                Text(period.title!)
+                    .bold()
+                    .font(.title3)
+                    .multilineTextAlignment(.leading)
+                    .padding(.trailing,5.0)
                 Spacer();Spacer();Spacer();
                 
                 VStack{
@@ -52,11 +59,13 @@ struct PeriodRowView: View {
                         TimeFormatter().secondsToHoursMinutesSecondsLiteUltra(interval: period.endingTime!.timeIntervalSince(period.startingTime!)))
                         .font(.caption2)
                         .padding(.trailing, 5.0)
+                        .multilineTextAlignment(.trailing)
                     
                     Text(TimeFormatter().longLongTimeAgo(date: period.endingTime!))
                         .font(.caption)
                         .foregroundColor(.gray)
                         .padding(.trailing, 5.0)
+                        .multilineTextAlignment(.trailing)
                     
                 }
                 Spacer().fixedSize()
