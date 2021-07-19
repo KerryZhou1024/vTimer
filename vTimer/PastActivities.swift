@@ -71,7 +71,10 @@ struct PastActivities: View {
                                 .navigationTitle("Details")
                                 .environment(\.managedObjectContext, persistenceController.container.viewContext),
                             label: {
-                                PeriodRowView(period: period)
+                                if period.uid != nil && period.startingTime != nil && period.endingTime != nil{
+                                    PeriodRowView(period: period)
+                                }
+                                
                             })
                     }else{
                         Spacer()
@@ -119,7 +122,7 @@ struct PastActivities: View {
             .navigationBarItems(trailing: Button(action: {
                 showClearAllAlert = true
             }, label: {
-                Text("Clear All")
+                Text("Delete All")
                     .foregroundColor(.red)
             }))
             .alert(isPresented: $showClearAllAlert, content: {

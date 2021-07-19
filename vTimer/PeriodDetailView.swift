@@ -92,7 +92,7 @@ struct PeriodDetailView: View {
                                 targetPeriodTitle = title
                             }
                         })
-                        .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.trailing)
                         
 
  

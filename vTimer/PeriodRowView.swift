@@ -13,6 +13,7 @@ struct PeriodRowView: View {
         self.period = period
     }
     
+//    @ObservedObject var
     let period: Periods
     
     
