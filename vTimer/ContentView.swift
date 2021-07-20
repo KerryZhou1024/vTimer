@@ -43,8 +43,7 @@ struct ContentView: View {
     
     var body: some View {
         
-        return Group {
-            
+        Group {
             
             if !timerIsRunning{
                 //when the timer is not running
@@ -57,29 +56,7 @@ struct ContentView: View {
                     Spacer()
                     
                     Button(action: {
-                        if periods.count > 0{
-                            if periods[periods.count - 1].endingTime != nil{
-                                timerIsRunning = true
-                                //now save
-                                
-                                let newPeriod = Periods(context: managedObjectContext)
-                                newPeriod.startingTime = Date()
-                                newPeriod.uid = UUID()
-                                
-                                PersistenceController.shared.save()
-                            }
-                        }else{
-                            timerIsRunning = true
-                            //now save
-                            
-                            let newPeriod = Periods(context: managedObjectContext)
-                            newPeriod.startingTime = Date()
-                            newPeriod.uid = UUID()
-                            
-                            PersistenceController.shared.save()
-                        }
-                        
-                        
+                        startButtonPressed()
                         
                     }) {
                         ZStack{
@@ -107,8 +84,6 @@ struct ContentView: View {
                 .onAppear{
                     updateView()
                 }
-                
-                
             }else{
                 VStack{
                     
@@ -130,22 +105,7 @@ struct ContentView: View {
                         
                         Button(action: {
                             //MARK: Remeber to update total number
-                            
-                            if periods.count > 0 {
-                                if periods[periods.count - 1].startingTime != nil{
-                                    timerIsRunning = false
-                                    
-                                    periods[periods.count - 1].endingTime = Date()
-                                    
-                                    PersistenceController.shared.save()
-                                    currentTimer = "0"
-                                }else{
-                                    showSpamAlert = true
-                                }
-                            }
-                            
-                            
-                            
+                            endButtonPressed()
                             
                             
                         }){
@@ -178,16 +138,9 @@ struct ContentView: View {
                 .onAppear{
                     updateView()
                 }
-                
-                
             }
         }
-        
-        
-        
-        
     }
-    
     
     func updateView(){
         
@@ -213,7 +166,48 @@ struct ContentView: View {
         
     }
     
+    func startButtonPressed(){
+        if periods.count > 0{
+            if periods[periods.count - 1].endingTime != nil{
+                timerIsRunning = true
+                //now save
+                
+                let newPeriod = Periods(context: managedObjectContext)
+                newPeriod.startingTime = Date()
+                newPeriod.uid = UUID()
+                
+                PersistenceController.shared.save()
+            }
+        }else{
+            timerIsRunning = true
+            //now save
+            
+            let newPeriod = Periods(context: managedObjectContext)
+            newPeriod.startingTime = Date()
+            newPeriod.uid = UUID()
+            
+            PersistenceController.shared.save()
+        }
+    }
     
+    func endButtonPressed(){
+        
+        if periods.count > 0 {
+            if periods[periods.count - 1].startingTime != nil{
+                timerIsRunning = false
+                
+                periods[periods.count - 1].endingTime = Date()
+                
+                PersistenceController.shared.save()
+                currentTimer = "0"
+            }else{
+                showSpamAlert = true
+            }
+        }
+        
+        
+        
+    }
 }
 
 private let itemFormatter: DateFormatter = {
