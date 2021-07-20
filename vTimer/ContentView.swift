@@ -36,7 +36,7 @@ struct ContentView: View {
     @State var totalTime:String = ""
     @State var currentTimer:String = ""
     
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
     
     
     
@@ -101,7 +101,7 @@ struct ContentView: View {
                     Spacer()
                     
                 }
-                .onChange(of: periods[periods.count - 1]) { _ in
+                .onChange(of: periods.count) { _ in
                     updateView()
                 }
                 .onAppear{
@@ -172,7 +172,7 @@ struct ContentView: View {
                     
                     Spacer()
                 }
-                .onChange(of: periods[periods.count - 1]) { _ in
+                .onChange(of: periods.last) { _ in
                     updateView()
                 }
                 .onAppear{
