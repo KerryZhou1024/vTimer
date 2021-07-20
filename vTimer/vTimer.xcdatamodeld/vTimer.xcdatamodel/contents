@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Periods" representedClassName="Periods" syncable="YES" codeGenerationType="class">
         <attribute name="endingTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isStillRunning" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="startingTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="tagID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -13,7 +14,7 @@
         <attribute name="uid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Periods" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="Periods" positionX="-63" positionY="-18" width="128" height="134"/>
         <element name="Tag" positionX="-63" positionY="27" width="128" height="59"/>
     </elements>
 </model>

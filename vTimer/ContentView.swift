@@ -35,8 +35,9 @@ struct ContentView: View {
     @State var timerIsRunning = false
     @State var totalTime:String = ""
     @State var currentTimer:String = ""
+    @State var totalInterval:TimeInterval = 0
     
-    let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+    let timerForCurrentTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
     
     
     
@@ -46,7 +47,6 @@ struct ContentView: View {
         Group {
             
             if !timerIsRunning{
-                //when the timer is not running
                 VStack{
                     
                     Spacer()
@@ -81,9 +81,6 @@ struct ContentView: View {
                 .onChange(of: periods.count) { _ in
                     updateView()
                 }
-                .onAppear{
-                    updateView()
-                }
             }else{
                 VStack{
                     
@@ -93,7 +90,7 @@ struct ContentView: View {
                     
                     Text(currentTimer != "" ? currentTimer : TimeFormatter().secondsToHoursMinutesSecondsLite(interval: Date().timeIntervalSince(periods[periods.count - 1].startingTime!)))
                         .font(.title)
-                        .onReceive(timer, perform: { _ in
+                        .onReceive(timerForCurrentTimer, perform: { _ in
                             currentTimer = TimeFormatter().secondsToHoursMinutesSecondsLite(interval: Date().timeIntervalSince(periods[periods.count - 1].startingTime!))
                         })
                     
@@ -132,14 +129,15 @@ struct ContentView: View {
                     
                     Spacer()
                 }
-                .onChange(of: periods.last) { _ in
-                    updateView()
-                }
-                .onAppear{
+                .onChange(of: periods[periods.count - 1].endingTime) { _ in
                     updateView()
                 }
             }
         }
+        .onAppear {
+            updateView()
+        }
+        
     }
     
     func updateView(){
@@ -147,6 +145,8 @@ struct ContentView: View {
         if periods.count > 0{
             if periods[periods.count - 1].endingTime == nil && periods[periods.count - 1].startingTime != nil{
                 timerIsRunning = true
+            }else{
+                timerIsRunning = false
             }
             
             
@@ -161,7 +161,7 @@ struct ContentView: View {
             totalTime = TimeFormatter().secondsToHoursMinutesSeconds(interval: totalTimeInterval)
         }else{
             timerIsRunning = false
-            totalTime = "let's get started"
+            totalTime = "let's get started!"
         }
         
     }

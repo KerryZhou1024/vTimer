@@ -28,7 +28,7 @@ struct PastActivities: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
+    
     
     @FetchRequest(
         entity: Periods.entity(),
@@ -45,7 +45,7 @@ struct PastActivities: View {
     
     @State var showClearAllAlert = false
     
-    @State var timerColor:Color = Color.blue
+    @State var timerColor:Color = Color.random
     
     @State var showSheet: Bool = false
     
@@ -53,7 +53,7 @@ struct PastActivities: View {
     
     @State var easterEggCount = 0
     
-    @State var easterEggAlertIsPresent = false
+    @State var deleteIncompletePeriod = false
     
     
     var body: some View {
@@ -61,7 +61,9 @@ struct PastActivities: View {
         
         NavigationView {
             Form{
-                List(periods, id:\.self){ period in
+                List(periods.indices , id:\.self){ index in
+                    
+                    let period = periods[index]
                     
                     if period.endingTime != nil && period.startingTime != nil &&
                         period.uid != nil{
@@ -73,42 +75,36 @@ struct PastActivities: View {
                             label: {
                                 if period.uid != nil && period.startingTime != nil && period.endingTime != nil{
                                     PeriodRowView(period: period)
+                                    
                                 }
                                 
                             })
                     }else{
                         Spacer()
                         
-                        Button(action: {
-                            timerColor = Color.random
-                            
-                            if easterEggCount > 14{
-                                easterEggCount = -112
-                                easterEggAlertIsPresent = true
+                        if index == 0{
+                            Button(action: {
                                 
-                            }else{
-                                easterEggCount += 1
-                            }
-                            
-                            
-                        }, label: {
-                            
-                            HStack{
-                                Image(systemName: "timer.square")
-                                    .font(.title)
-                                    .foregroundColor(timerColor)
+                            }, label: {
                                 
-                                Text("Timer Is Running")
-                                    .bold()
-                                    .foregroundColor(timerColor)
-                                    .padding()
-                                    .font(.callout)
-                            }
-                        }).alert(isPresented: $easterEggAlertIsPresent, content: {
-                            
-                            Alert(title: Text(":)"), message: Text("You have found an Easter egg"), dismissButton: .default(Text("lol")))
-                            
-                        })
+                                HStack{
+                                    Image(systemName: "timer.square")
+                                        .font(.title)
+                                        .foregroundColor(timerColor)
+                                    
+                                    Text("Timer Is Running")
+                                        .bold()
+                                        .foregroundColor(timerColor)
+                                        .padding()
+                                        .font(.callout)
+                                }
+                            })
+                            .alert(isPresented: $deleteIncompletePeriod, content: {
+                                
+                            })
+                        }
+                        
+                        //
                         
                         
                         Spacer()
@@ -133,7 +129,7 @@ struct PastActivities: View {
                         
                     }
                     PersistenceController.shared.save()
-
+                    
                 }))
                 
             })
