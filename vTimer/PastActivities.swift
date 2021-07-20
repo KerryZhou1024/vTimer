@@ -84,7 +84,9 @@ struct PastActivities: View {
                         
                         if index == 0{
                             Button(action: {
-                                
+                                if Float.random(in: 0..<1) < 0.125{
+                                    deleteIncompletePeriod = true
+                                }
                             }, label: {
                                 
                                 HStack{
@@ -100,7 +102,7 @@ struct PastActivities: View {
                                 }
                             })
                             .alert(isPresented: $deleteIncompletePeriod, content: {
-                                
+                                Alert(title: Text("you have find an easter egg!"), dismissButton: .default(Text("lol")))
                             })
                         }
                         
@@ -111,6 +113,15 @@ struct PastActivities: View {
                         
                         
                         
+                    }
+                }.onAppear {//this delete all the old "Timer is running" created by asynced cloudkit data
+                    timerColor = Color.random
+                    for index in periods.indices{
+                        let period = periods[index]
+                        if period.endingTime == nil && period.startingTime != nil && index != 0{
+                            managedObjectContext.delete(period)
+                            PersistenceController.shared.save()
+                        }
                     }
                 }
                 
