@@ -462,6 +462,7 @@
 				CODE_SIGN_ENTITLEMENTS = vTimer/vTimer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"vTimer/Preview Content\"";
 				DEVELOPMENT_TEAM = G6V8P6TAH6;
 				ENABLE_PREVIEWS = YES;
@@ -487,6 +488,7 @@
 				CODE_SIGN_ENTITLEMENTS = vTimer/vTimer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"vTimer/Preview Content\"";
 				DEVELOPMENT_TEAM = G6V8P6TAH6;
 				ENABLE_PREVIEWS = YES;

@@ -84,7 +84,8 @@ struct PastActivities: View {
                         
                         if index == 0{
                             Button(action: {
-                                if Float.random(in: 0..<1) < 0.125{
+                                timerColor = Color.random
+                                if Float.random(in: 0..<1) < 0.0875{
                                     deleteIncompletePeriod = true
                                 }
                             }, label: {
